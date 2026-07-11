@@ -83,4 +83,32 @@ def verify_message(message, signature):
 
     except InvalidSignature:
         return False 
-    
+
+def encrypt_message(message):
+    public_key = load_public_key()
+
+    encrypted_message = public_key.encrypt(
+        message,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+
+    return encrypted_message
+
+
+def decrypt_message(encrypted_message):
+    private_key = load_private_key()
+
+    decrypted_message = private_key.decrypt(
+        encrypted_message,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+
+    return decrypted_message 

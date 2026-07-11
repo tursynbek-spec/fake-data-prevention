@@ -114,7 +114,7 @@ Message is authentic.
 If the received message is changed:
 
 ```
-Transfer 1000 euros
+Transfer 10000 euros
 ```
 
 Result
@@ -127,4 +127,4 @@ Fake data detected.
 
 ## Author
 
-Tursynbek Beisekul 
+Tursynbek Beisekul 561758

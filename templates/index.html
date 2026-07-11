@@ -6,38 +6,59 @@
     <title>Fake Data Prevention</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <main>
         <h1>Fake Data Prevention</h1>
-        <p>Verify whether a message has been modified.</p>
+        <p>Verify message integrity or encrypt a message using RSA.</p>
 
         <form method="POST">
-            <label for="original_message">Original message</label>
+
+            <label for="original_message">Original Message</label>
             <textarea
                 id="original_message"
                 name="original_message"
-                required
-            >{{ original_text }}</textarea>
+                required>{{ original_text }}</textarea>
 
-            <label for="received_message">Received message</label>
+            <label for="received_message">Received Message</label>
             <textarea
                 id="received_message"
-                name="received_message"
-                required
-            >{{ received_text }}</textarea>
+                name="received_message">{{ received_text }}</textarea>
 
-            <button type="submit">Verify Signature</button>
+            <button type="submit" name="action" value="verify">
+                Verify Signature
+            </button>
+
+            <button type="submit" name="action" value="encrypt">
+                Encrypt and Decrypt
+            </button>
+
         </form>
 
         {% if result == "valid" %}
-            <div class="result valid">
-                Message is authentic.
-            </div>
+        <div class="result valid">
+            ✔ Message is authentic.
+        </div>
         {% elif result == "fake" %}
-            <div class="result fake">
-                Fake data detected.
-            </div>
+        <div class="result fake">
+            ❌ Fake data detected.
+        </div>
         {% endif %}
+
+        {% if encrypted_text %}
+        <div class="result">
+
+            <h3>Encrypted Message</h3>
+
+            <textarea readonly>{{ encrypted_text }}</textarea>
+
+            <h3>Decrypted Message</h3>
+
+            <textarea readonly>{{ decrypted_text }}</textarea>
+
+        </div>
+        {% endif %}
+
     </main>
 </body>
-</html>
+</html> 
