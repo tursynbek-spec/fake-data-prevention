@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Data Prevention</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Fake Data Prevention</h1>
+        <p>Verify whether a message has been modified.</p>
+
+        <form method="POST">
+            <label for="original_message">Original message</label>
+            <textarea
+                id="original_message"
+                name="original_message"
+                required
+            >{{ original_text }}</textarea>
+
+            <label for="received_message">Received message</label>
+            <textarea
+                id="received_message"
+                name="received_message"
+                required
+            >{{ received_text }}</textarea>
+
+            <button type="submit">Verify Signature</button>
+        </form>
+
+        {% if result == "valid" %}
+            <div class="result valid">
+                Message is authentic.
+            </div>
+        {% elif result == "fake" %}
+            <div class="result fake">
+                Fake data detected.
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>
